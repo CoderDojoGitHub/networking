@@ -270,3 +270,10 @@ from, so we need to remove the first character. That's what
 `theFile[1:]` means. So once we have the actul filename (which we call
 `relativeFile`), we open it and read the text out. Then we write that
 text back to the connection.
+
+So go ahead and try it - load up 'localhost:12345/thenameofthisfile.py'
+in your web browser.
+
+[If there's time, we do an optional section where we show them how to
+look up their ip address (Terminal -> ifconfig / cmd -> ipconfig) and
+then load some of their neighbor's content.
