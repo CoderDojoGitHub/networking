@@ -65,6 +65,11 @@ With all that in mind, we're going to write a very simple server. A
 server is just a name for a program that sits on a computer waiting to
 interact with something.
 
+Don't worry if you don't understand all the python we're writing today -
+our goal is to understand how computers communicate. If you'd like to
+learn more about the python you're writing, take a look at the
+'tic-tac-toe' [lessons](https://github.com/kevinclark/Lesson-Plans).
+
 
 # First Server - Hello World!
 
@@ -152,10 +157,12 @@ and point your web browser to 'localhost:12345' again, and see what
 happens.
 
 I see 'GET / HTTP/1.1'. This is what my web browser sends when it
-connects to something. This is the way it interacts. That's neat to see,
-but we'd like to send something of our own. So if you're on windows,
-open putty and point it at localhost and port 12345. Make sure you
-select telnet. If you're on OS X, open the terminal (use spotlight) and
+connects to something. Try changing the URL a little bit - put a slash
+and some extra characters after it. You'll notice the slash turns into
+a slash and that set of characters. This is the way it interacts.
+That's neat to see, but we'd like to send something of our own.
+So if you're on windows, open putty and point it at localhost and port 12345.
+Make sure you select telnet. If you're on OS X, open the terminal (use spotlight) and
 type `telnet localhost 12345`.
 
 The screen is going to sit there now, waiting for you to do something.
@@ -224,7 +231,15 @@ Now try it again and it works.
 
 ### Our first Web Server
 
-### TODO - Explain web server
+
+When we were first trying out our 'echo' server, we connected with our
+web browsers and the browsers sent data. It said 'GET / HTTP/1.1', and
+the slash would add on whatever set of characters we put in the address
+bar. If we wanted to, we could treat those characters as a filename and
+return the text of that file over the connection. That's how a 'web
+server' works, and it's how most of the early web was created. So let's
+do it. Update your code (or make a new file) that looks like this:
+
 
 ```python
 import SocketServer
@@ -243,3 +258,15 @@ class WebServerHandler(SocketServer.StreamRequestHandler):
 server = SocketServer.TCPServer(('localhost', 12345), WebServerHandler)
 server.serve_forever()
 ```
+
+We don't need 'random' this time, so we only `import SocketServer`. In
+`handle` we read what's been sent over the line like before. Then we
+split up that information. When we say '.split()', the computer breaks
+up the text we're splitting by spaces. So 'GET / HTTP/1.1' would turn
+into ['GET', '/', 'HTTP/1.1']. We give those three things names so we
+can use them later, and we call the middle one `theFile`. For now, we
+want to load files that are in the directory we're running the program
+from, so we need to remove the first character. That's what
+`theFile[1:]` means. So once we have the actul filename (which we call
+`relativeFile`), we open it and read the text out. Then we write that
+text back to the connection.
