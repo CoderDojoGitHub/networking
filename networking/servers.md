@@ -174,7 +174,7 @@ about how a web browser communicates - it's just like us opening a
 connection with telnet, but much much faster.
 
 
-### Persistent Two Way Communication - Guessing Game
+### Interactive Two Way Communication - Guessing Game
 
 Now that we can communicate back and forth, let's make it a little more
 interactive. Let's write a really simple number guessing game. Just like
@@ -201,10 +201,23 @@ server = SocketServer.TCPServer(('localhost', 12345), NumberHandler)
 server.serve_forever()
 ```
 
-### TODO - Explain number server
+This is pretty close to what we had before. There's an additional `import` for 'random'.
+We use random in this first line of `handle` to randomly select a number between 1 and 5.
+After that, we write some instructions to whoever we're talking to. If you're curious
+about what that '\n' is, try adding more and seeing what happens. After writing instructions,
+we read in a line from the connection and repeat it back to them. Then we tell whoever
+we're talking to whether they guessed the right number. 
 
-So we'll need to strip that newline away. We can do that with the
-'strip' method. Change `if data == str(number)` to `if data.strip() == str(number)`.
+Go ahead and try it out a few times and see what happens.
+
+[Let them experiment]
+
+You'll notice that when you pick the right number, things aren't
+working. That's because of that '\n' we looked at earlier. It's a
+newline, and it's what gets typed when you press 'enter'. It also gets
+sent when you press enter in telnet, so we'll need to strip that newline away.
+We can do that with the 'strip' method. Change `if data == str(number)` to
+`if data.strip() == str(number)`.
 
 Now try it again and it works.
 
