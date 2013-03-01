@@ -5,7 +5,7 @@ We're going to do that by building programs that work just like those you intera
 with on the web do.
 
 If you'd like to follow along, or move ahead, the lesson plan can be
-found [here](https://github.com/kevinclark/Lesson-Plans/blob/master/networking/servers.md).
+found [here](https://github.com/CoderDojoSF/networking/blob/master/servers.py).
 
 First, some prerequisites. You'll need a text editor and python.
 
